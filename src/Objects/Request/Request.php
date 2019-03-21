@@ -50,7 +50,7 @@ class Request implements RequestInterface
     public function getPrimaryResource(): string
     {
         // This equals to the root-level request of the Mailchimp API v3.0
-        return "";
+        return '';
     }
 
     /** {@inheritdoc} */

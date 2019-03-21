@@ -9,7 +9,7 @@ namespace Brille24\Mailchimp\Objects\Request;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
 
-final class ListRequest extends Request
+class ListRequest extends Request
 {
     /** {@inheritdoc} */
     public static function fromMethod(
@@ -37,7 +37,7 @@ final class ListRequest extends Request
     /** {@inheritdoc} */
     public function getPrimaryResource(): string
     {
-        $primaryResource = "lists";
+        $primaryResource = 'lists';
         if (null !== $this->getIdentifier()) {
             $primaryResource = sprintf('%s/%s', $primaryResource, $this->getIdentifier());
         }

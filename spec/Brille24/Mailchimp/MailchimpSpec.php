@@ -6,6 +6,8 @@ use Brille24\Mailchimp\Mailchimp;
 use Brille24\Mailchimp\MailchimpInterface;
 use Brille24\Mailchimp\Objects\Data\DataInterface;
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
+use Brille24\Mailchimp\Objects\Request\ListRequest;
+use Brille24\Mailchimp\Objects\Request\Request;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use Brille24\Mailchimp\Objects\Security\Credentials;
 use GuzzleHttp\Client;
@@ -22,12 +24,12 @@ class MailchimpSpec extends ObjectBehavior
     {
         $this->beConstructedWith($client, $credentials);
     }
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Mailchimp::class);
     }
 
-    function it_implements()
+    public function it_implements()
     {
         $this->shouldImplement(MailchimpInterface::class);
     }
@@ -42,7 +44,7 @@ class MailchimpSpec extends ObjectBehavior
         ResponseInterface $response,
         ClientInterface $client,
         Credentials $credentials
-    ) {
+    ): void {
         $credentials->getApiKey()->willReturn('api-key');
         $request->getBodyParameters()->willReturn(null);
         $request->getQueryParameters()->willReturn(null);
@@ -64,7 +66,7 @@ class MailchimpSpec extends ObjectBehavior
         ClientInterface $client,
         Credentials $credentials,
         DataInterface $queryParameters
-    ) {
+    ): void {
         $credentials->getApiKey()->willReturn('api-key');
         $queryParameters->toRequestBody()->willReturn('some-query-parameters');
         $request->getBodyParameters()->willReturn(null);
@@ -87,7 +89,7 @@ class MailchimpSpec extends ObjectBehavior
         ClientInterface $client,
         Credentials $credentials,
         DataInterface $bodyParameters
-    ) {
+    ): void {
         $credentials->getApiKey()->willReturn('api-key');
         $bodyParameters->toRequestBody()->willReturn('a-json-string');
         $request->getBodyParameters()->willReturn($bodyParameters);
@@ -111,7 +113,7 @@ class MailchimpSpec extends ObjectBehavior
         Credentials $credentials,
         DataInterface $queryParameters,
         DataInterface $bodyParameters
-    ) {
+    ): void {
         $credentials->getApiKey()->willReturn('api-key');
         $bodyParameters->toRequestBody()->willReturn('a-json-string');
         $queryParameters->toRequestBody()->willReturn('some-query-parameters');
@@ -135,7 +137,7 @@ class MailchimpSpec extends ObjectBehavior
         ClientException $clientException,
         ClientInterface $client,
         Credentials $credentials
-    ) {
+    ): void {
         $clientException->getResponse()->willReturn($response);
         $credentials->getApiKey()->willReturn('api-key');
         $request->getBodyParameters()->willReturn(null);
@@ -158,7 +160,7 @@ class MailchimpSpec extends ObjectBehavior
         ServerException $serverException,
         ClientInterface $client,
         Credentials $credentials
-    ) {
+    ): void {
         $serverException->getResponse()->willReturn($response);
         $credentials->getApiKey()->willReturn('invalid-api-key');
         $request->getBodyParameters()->willReturn(null);

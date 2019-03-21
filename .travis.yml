@@ -14,4 +14,4 @@ install:
 script:
   - php -l src/
   - php vendor/bin/phpspec run
-  - php vendor/bin/phpstan analyse src/ --level 7 --configuration phpstan.neon
+  - php vendor/bin/phpstan analyse src/ --level max --configuration phpstan.neon

@@ -9,7 +9,7 @@ namespace Brille24\Mailchimp\Objects\Request;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
 
-final class MemberRequest extends Request
+class MemberRequest extends Request
 {
     /** @var ListRequest */
     protected $listRequest;
@@ -19,6 +19,8 @@ final class MemberRequest extends Request
      * @param RequestInterface $listRequest
      *
      * @return RequestInterface
+     *
+     * @throws \InvalidArgumentException
      */
     public static function fromListAndMethod(
         RequestMethod $method,
@@ -27,6 +29,10 @@ final class MemberRequest extends Request
 
         if (!$listRequest instanceof ListRequest) {
             throw new \InvalidArgumentException(sprintf('A MemberRequest can only be executed with a ListRequest, %s given', get_class($listRequest)));
+        }
+
+        if (null === $listRequest->getIdentifier()) {
+            throw new \InvalidArgumentException('A MemberRequest can only be used with a List-Identifier!');
         }
 
         $memberRequest = new self($method);
@@ -52,6 +58,10 @@ final class MemberRequest extends Request
             throw new \InvalidArgumentException(sprintf('A MemberRequest can only be executed with a ListRequest, %s given', get_class($listRequest)));
         }
 
+        if (null === $listRequest->getIdentifier()) {
+            throw new \InvalidArgumentException('A MemberRequest can only be used with a List-Identifier!');
+        }
+
         $memberRequest = new self($method);
         $memberRequest->setListRequest($listRequest);
 
@@ -66,7 +76,7 @@ final class MemberRequest extends Request
     public function getPrimaryResource(): string
     {
         // Combine list-request resource with member-request resource
-        $primaryResource = sprintf('%s/%s', $this->getListRequest()->getPrimaryResource(), "members");
+        $primaryResource = sprintf('%s/%s', $this->getListRequest()->getPrimaryResource(), 'members');
         if (null !== $this->getIdentifier()) {
             $primaryResource = sprintf('%s/%s', $primaryResource, $this->getIdentifier());
         }
