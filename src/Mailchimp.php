@@ -12,8 +12,7 @@ use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\TransferStats;
+use Psr\Http\Message\ResponseInterface;
 
 class Mailchimp implements MailchimpInterface
 {
@@ -46,10 +45,11 @@ class Mailchimp implements MailchimpInterface
      * @param RequestInterface $request
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
      *
-     * @return Response
+     * @return ResponseInterface|null
      */
-    public function executeRequest(RequestInterface $request): Response
+    public function executeRequest(RequestInterface $request): ?ResponseInterface
     {
         // @TODO Handle things like "does this mail exist"
         // @TODO Decide on how to be intelligently updating/creating, etc
@@ -64,7 +64,7 @@ class Mailchimp implements MailchimpInterface
 
         try {
             $response = $this->client->request(
-                $request->getMethod(),
+                (string) $request->getMethod(),
                 $this->generateRequestUrl($request),
                 $requestConfiguration
             );
@@ -84,7 +84,7 @@ class Mailchimp implements MailchimpInterface
      *
      * @return string
      */
-    private function getMailchimpUrl(string $version = "3.0"): string
+    private function getMailchimpUrl(string $version): string
     {
         $dataCenter = explode('-', $this->getCredentials()->getApiKey());
 
@@ -95,11 +95,12 @@ class Mailchimp implements MailchimpInterface
      * Generates the URL for a specific mailchimp request.
      *
      * @param RequestInterface $request
+     * @param string $version
      *
      * @return string
      */
-    private function generateRequestUrl(RequestInterface $request)
+    private function generateRequestUrl(RequestInterface $request, string $version = "3.0")
     {
-        return sprintf('%s/%s', $this->getMailchimpUrl(), $request->getPrimaryResource());
+        return sprintf('%s/%s', $this->getMailchimpUrl($version), $request->getPrimaryResource());
     }
 }

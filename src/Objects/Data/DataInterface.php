@@ -13,6 +13,8 @@ interface DataInterface
      * Converts this into a string that can be send to Mailchimp API v3.0
      *
      * @return string
+     *
+     * @throws \Exception
      */
     public function toRequestBody(): string;
 }

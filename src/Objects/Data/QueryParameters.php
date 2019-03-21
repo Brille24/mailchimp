@@ -16,7 +16,7 @@ final class QueryParameters extends Dictionary implements DataInterface
     public function toRequestBody(): string
     {
         $queryString = [];
-        /** @var $queryParameter KeyValuePair */
+        /** @var KeyValuePair $queryParameter*/
         foreach ($this->toArray() as $queryParameter) {
             $queryString[] = sprintf('%s=%s', $queryParameter->getKey(), $queryParameter->getValue());
         }

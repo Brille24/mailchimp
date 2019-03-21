@@ -133,6 +133,11 @@ final class MemberData implements DataInterface
             $bodyParameters['merge_fields'] = $this->getMergeFields();
         }
 
-        return json_encode($bodyParameters);
+        $body = json_encode($bodyParameters);
+        if ($body === false) {
+            throw new \Exception('Member data could not be encoded to json');
+        }
+
+        return $body;
     }
 }

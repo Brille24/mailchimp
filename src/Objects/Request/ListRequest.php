@@ -26,7 +26,7 @@ final class ListRequest extends Request
      */
     public static function fromMethodAndIdentifier(
         RequestMethod $method,
-        string $listId = null
+        ?string $listId = null
     ): RequestInterface {
         $listRequest = new self($method);
         $listRequest->setIdentifier($listId);

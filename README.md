@@ -10,6 +10,7 @@ This library is intended to be used with the brille24/mailchimp-symfony-bundle w
 ```bash
 composer install
 php vendor/bin/phpspec run
+php vendor/bin/phpstan analyse src/ --level 7 --configuration phpstan.neon
 ```
 
 ## Examples

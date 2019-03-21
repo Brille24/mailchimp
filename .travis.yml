@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 7.2
+  - 7.1
+
+cache:
+    directories:
+      - ~/.composer/cache/files
+
+install:
+  - composer update --prefer-dist
+
+script:
+  - php -l src/
+  - php vendor/bin/phpspec run
+  - php vendor/bin/phpstan analyse src/ --level 7 --configuration phpstan.neon

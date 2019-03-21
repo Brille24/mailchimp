@@ -45,7 +45,7 @@ final class MemberRequest extends Request
     public static function fromListMethodAndEmail(
         RequestMethod $method,
         RequestInterface $listRequest,
-        string $email = null
+        ?string $email = null
     ): RequestInterface {
 
         if (!$listRequest instanceof ListRequest) {
@@ -54,7 +54,10 @@ final class MemberRequest extends Request
 
         $memberRequest = new self($method);
         $memberRequest->setListRequest($listRequest);
-        $memberRequest->setIdentifier(hash('md5', strtolower($email)));
+
+        if (null !== $email) {
+            $memberRequest->setIdentifier(hash('md5', strtolower($email)));
+        }
 
         return $memberRequest;
     }
