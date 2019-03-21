@@ -1,0 +1,26 @@
+<?php
+/**
+ * @author Peter Ukena <peter.ukena@brille24.de>
+ */
+
+declare(strict_types=1);
+
+namespace Brille24\Mailchimp\Objects\Data;
+
+use ValueObjects\Structure\Dictionary;
+use ValueObjects\Structure\KeyValuePair;
+
+final class QueryParameters extends Dictionary implements DataInterface
+{
+    /** {@inheritdoc} */
+    public function toRequestBody(): string
+    {
+        $queryString = [];
+        /** @var $queryParameter KeyValuePair */
+        foreach ($this->toArray() as $queryParameter) {
+            $queryString[] = sprintf('%s=%s', $queryParameter->getKey(), $queryParameter->getValue());
+        }
+
+        return implode('&', $queryString);
+    }
+}

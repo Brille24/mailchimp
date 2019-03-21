@@ -1,2 +1,4 @@
 # PHP-Storm
 .idea/
+/vendor/
+test.php

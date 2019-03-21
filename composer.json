@@ -1,0 +1,26 @@
+{
+    "name": "brille24/mailchimp",
+    "description": "Mailchimp API v3.0 implementation in PHP7.2",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peter Ukena",
+            "email": "peter.ukena@brille24.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.3",
+        "ytake/valueobjects": "^2.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brille24\\Mailchimp\\": "src/"
+        }
+    }
+}
