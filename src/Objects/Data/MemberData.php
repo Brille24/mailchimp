@@ -124,8 +124,8 @@ final class MemberData implements DataInterface
 
         $bodyParameters['email_address'] = $this->getEmailAddress();
         $bodyParameters['email_type'] = $this->getEmailType();
-        $bodyParameters['status'] = $this->getStatus();
-        $bodyParameters['language'] = $this->getLanguage();
+        $bodyParameters['status'] = (string) $this->getStatus();
+        $bodyParameters['language'] = (string) $this->getLanguage();
         $bodyParameters['vip'] = $this->isVip();
 
         if (null !== $this->getInterests()) {
