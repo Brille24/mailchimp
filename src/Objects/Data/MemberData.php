@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace Brille24\Mailchimp\Objects\Data;
 
+use Brille24\Mailchimp\Objects\Enumeration\MemberLanguage;
+use Brille24\Mailchimp\Objects\Enumeration\MemberStatus;
+
 final class MemberData implements DataInterface
 {
     /** @var string */
@@ -15,7 +18,7 @@ final class MemberData implements DataInterface
     /** @var string  */
     protected $emailType = 'html';
 
-    /** @var string|null */
+    /** @var MemberStatus|null */
     protected $status;
 
     /** @var array|null */
@@ -24,7 +27,7 @@ final class MemberData implements DataInterface
     /** @var array|null */
     protected $interests;
 
-    /** @var string|null */
+    /** @var MemberLanguage|null */
     protected $language;
 
     /** @var bool */
@@ -54,14 +57,14 @@ final class MemberData implements DataInterface
         $this->emailType = $emailType;
     }
 
-    /** @return string */
-    public function getStatus(): ?string
+    /** @return MemberStatus */
+    public function getStatus(): ?MemberStatus
     {
         return $this->status;
     }
 
-    /** @param string $status */
-    public function setStatus(string $status): void
+    /** @param MemberStatus $status */
+    public function setStatus(MemberStatus $status): void
     {
         $this->status = $status;
     }
@@ -90,14 +93,14 @@ final class MemberData implements DataInterface
         $this->interests = $interests;
     }
 
-    /** @return string */
-    public function getLanguage(): ?string
+    /** @return MemberLanguage */
+    public function getLanguage(): ?MemberLanguage
     {
         return $this->language;
     }
 
-    /** @param string $language */
-    public function setLanguage(string $language): void
+    /** @param MemberLanguage $language */
+    public function setLanguage(MemberLanguage $language): void
     {
         $this->language = $language;
     }
