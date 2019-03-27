@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/Brille24/mailchimp.svg?branch=master)](https://travis-ci.org/Brille24/mailchimp)
 
 ## Brille24 Mailchimp Library
-This library is intended to be used with the brille24/mailchimp-symfony-bundle which provides Mailchimp API v3.0 functionality.
+
+This library is a simple package aimed to consume the Mailchimp API v3.0.
 
 ## Currently implemented features
 * Reading, Creating and Updating Mailchimp Lists
