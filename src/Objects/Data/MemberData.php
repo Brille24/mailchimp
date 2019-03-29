@@ -33,6 +33,9 @@ final class MemberData implements DataInterface
     /** @var bool */
     protected $vip = false;
 
+    /** @var array|null */
+    protected $marketingPermissions;
+
     /** @return string */
     public function getEmailAddress(): string
     {
@@ -117,6 +120,22 @@ final class MemberData implements DataInterface
         $this->vip = $vip;
     }
 
+    /**
+     * @return array|null
+     */
+    public function getMarketingPermissions(): ?array
+    {
+        return $this->marketingPermissions;
+    }
+
+    /**
+     * @param array|null $marketingPermissions
+     */
+    public function setMarketingPermissions(?array $marketingPermissions): void
+    {
+        $this->marketingPermissions = $marketingPermissions;
+    }
+
     /** {@inheritdoc} */
     public function toRequestBody(): string
     {
@@ -134,6 +153,15 @@ final class MemberData implements DataInterface
 
         if (null !== $this->getMergeFields()) {
             $bodyParameters['merge_fields'] = $this->getMergeFields();
+        }
+
+        if (null !== $this->getMarketingPermissions()) {
+            foreach ($this->getMarketingPermissions() as $permissionId => $enabled) {
+                $bodyParameters['marketing_permissions'][] = [
+                    'marketing_permission_id' => $permissionId,
+                    'enabled' => $enabled
+                ];
+            }
         }
 
         $body = json_encode($bodyParameters);

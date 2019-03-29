@@ -99,7 +99,7 @@ class Mailchimp implements MailchimpInterface
      *
      * @return string
      */
-    private function generateRequestUrl(RequestInterface $request, string $version = "3.0")
+    private function generateRequestUrl(RequestInterface $request, string $version = '3.0'): string
     {
         return sprintf('%s/%s', $this->getMailchimpUrl($version), $request->getPrimaryResource());
     }
