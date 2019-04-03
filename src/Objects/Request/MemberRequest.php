@@ -8,29 +8,22 @@ declare(strict_types=1);
 namespace Brille24\Mailchimp\Objects\Request;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
+use InvalidArgumentException;
 
 class MemberRequest extends Request
 {
-    /** @var ListRequest */
-    protected $listRequest;
-
     /**
+     * @param ListRequest $listRequest
      * @param RequestMethod $method
-     * @param RequestInterface $listRequest
      *
      * @return RequestInterface
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function fromListAndMethod(
-        RequestMethod $method,
-        RequestInterface $listRequest
+        ListRequest $listRequest,
+        RequestMethod $method
     ): RequestInterface {
-
-        if (!$listRequest instanceof ListRequest) {
-            throw new \InvalidArgumentException(sprintf('A MemberRequest can only be executed with a ListRequest, %s given', get_class($listRequest)));
-        }
-
         if (null === $listRequest->getIdentifier()) {
             throw new \InvalidArgumentException('A MemberRequest can only be used with a List-Identifier!');
         }
@@ -41,23 +34,21 @@ class MemberRequest extends Request
         return $memberRequest;
     }
 
+    /** @var ListRequest */
+    protected $listRequest;
+
     /**
+     * @param ListRequest $listRequest
      * @param RequestMethod $method
-     * @param RequestInterface $listRequest
      * @param string|null $email
      *
      * @return RequestInterface
      */
     public static function fromListMethodAndEmail(
+        ListRequest $listRequest,
         RequestMethod $method,
-        RequestInterface $listRequest,
         ?string $email = null
     ): RequestInterface {
-
-        if (!$listRequest instanceof ListRequest) {
-            throw new \InvalidArgumentException(sprintf('A MemberRequest can only be executed with a ListRequest, %s given', get_class($listRequest)));
-        }
-
         if (null === $listRequest->getIdentifier()) {
             throw new \InvalidArgumentException('A MemberRequest can only be used with a List-Identifier!');
         }
