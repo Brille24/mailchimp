@@ -24,14 +24,18 @@ $listRequest = ListRequest::fromMethod(RequestMethod::byName('GET'));
 $listRequest = ListRequest::fromMethodAndIdentifier(RequestMethod::byName('GET'), "your_list_id");
 
 // Getting all members from a list.
-$memberRequest = MemberRequest::fromListAndMethod(RequestMethod::byName('GET'), $listRequest);
+$memberRequest = MemberRequest::fromListAndMethod($listRequest, RequestMethod::byName('GET'));
 
 // Getting a specific member of a list.
 $memberRequest = MemberRequest::fromListMethodAndEmail(
-    RequestMethod::byName('GET'),
     $listRequest,
+    RequestMethod::byName('GET'),
     'some@email_address.tld'
 );
+
+/**
+ * All other requests work in a similar, wrapped style
+ **/
 
 // Updating or creating a new member in a list.
 // 1. Make a list and member request.
