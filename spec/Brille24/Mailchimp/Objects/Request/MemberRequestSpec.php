@@ -13,7 +13,10 @@ class MemberRequestSpec extends ObjectBehavior
 {
     public function let(): void
     {
-        $this->beConstructedWith(RequestMethod::byName('GET'));
+        /** @var ListRequest $listRequest */
+        $listRequest = ListRequest::fromMethodAndIdentifier(RequestMethod::byName('GET'), 'list-ident');
+
+        $this->beConstructedThrough('fromListAndMethod', [$listRequest, RequestMethod::byName('GET')]);
     }
 
     public function it_is_initializable(): void
@@ -26,29 +29,20 @@ class MemberRequestSpec extends ObjectBehavior
         $this->shouldImplement(RequestInterface::class);
     }
 
-    public function it_throws_an_exception_if_a_request_is_not_built_properly(
-        RequestInterface $request
-    ): void {
-        $request->beADoubleOf(RequestInterface::class);
-        $this->shouldThrow(
-            new \InvalidArgumentException(
-                sprintf('A MemberRequest can only be executed with a ListRequest, %s given', get_class($request->getWrappedObject())))
-        )->during(
-            'fromListAndMethod',
-            [RequestMethod::byName('GET'), $request]
-        );
+    public function it_will_produce_an_executable_request(): void
+    {
+        $this->getPrimaryResource()->shouldReturn('lists/list-ident/members');
     }
 
     public function it_throws_an_exception_if_a_primary_resource_has_no_identifier(
-        RequestInterface $request
+        ListRequest $request
     ): void {
-        $request->beADoubleOf(ListRequest::class);
         $request->getIdentifier()->willReturn(null);
         $this->shouldThrow(
             new \InvalidArgumentException('A MemberRequest can only be used with a List-Identifier!')
         )->during(
             'fromListAndMethod',
-            [RequestMethod::byName('GET'), $request]
+            [$request, RequestMethod::byName('GET')]
         );
     }
 }
