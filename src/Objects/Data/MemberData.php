@@ -9,6 +9,7 @@ namespace Brille24\Mailchimp\Objects\Data;
 
 use Brille24\Mailchimp\Objects\Enumeration\MemberLanguage;
 use Brille24\Mailchimp\Objects\Enumeration\MemberStatus;
+use \ErrorException;
 
 final class MemberData implements DataInterface
 {
@@ -35,6 +36,9 @@ final class MemberData implements DataInterface
 
     /** @var array|null */
     protected $marketingPermissions;
+
+    /** @var array|null */
+    protected $tags;
 
     /** @return string */
     public function getEmailAddress(): string
@@ -136,6 +140,22 @@ final class MemberData implements DataInterface
         $this->marketingPermissions = $marketingPermissions;
     }
 
+    /**
+     * @return array|null
+     */
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param array|null $tags
+     */
+    public function setTags(?array $tags): void
+    {
+        $this->tags = $tags;
+    }
+
     /** {@inheritdoc} */
     public function toRequestBody(): string
     {
@@ -164,9 +184,13 @@ final class MemberData implements DataInterface
             }
         }
 
+        if (null !== $this->getTags()) {
+            $bodyParameters['tags'] = $this->getTags();
+        }
+
         $body = json_encode($bodyParameters);
         if ($body === false) {
-            throw new \Exception('Member data could not be encoded to json');
+            throw new ErrorException('Member data could not be encoded to json');
         }
 
         return $body;
