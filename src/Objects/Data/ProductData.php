@@ -244,6 +244,8 @@ final class ProductData implements DataInterface
      */
     public function removeVariant(ProductVariantData $variant): void
     {
+        Assert::minCount($this->variants, 2, 'At least one variant is required!');
+
         if (($key = array_search($variant, $this->variants)) !== false) {
             unset($this->variants[$key]);
         }
