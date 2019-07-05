@@ -74,7 +74,7 @@ final class ProductData implements DataInterface
         ];
 
         if (null !== $this->getPublishedAtForeign()) {
-            $bodyParameters['published_at_foreign'] = $this->getPublishedAtForeign()->format('Y-m-d');
+            $bodyParameters['published_at_foreign'] = $this->getPublishedAtForeign()->format(\DateTimeInterface::ATOM);
         }
 
         $body = json_encode($bodyParameters);

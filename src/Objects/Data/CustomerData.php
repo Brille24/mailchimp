@@ -33,7 +33,7 @@ final class CustomerData implements DataInterface
     /** @var float|null */
     private $total_spent;
 
-    /** @var AddressData|null */
+    /** @var CustomerAddressData|null */
     private $address;
 
     public function __construct(string $id)
@@ -195,17 +195,17 @@ final class CustomerData implements DataInterface
     }
 
     /**
-     * @return AddressData|null
+     * @return CustomerAddressData|null
      */
-    public function getAddress(): ?AddressData
+    public function getAddress(): ?CustomerAddressData
     {
         return $this->address;
     }
 
     /**
-     * @param AddressData|null $address
+     * @param CustomerAddressData|null $address
      */
-    public function setAddress(?AddressData $address): void
+    public function setAddress(?CustomerAddressData $address): void
     {
         $this->address = $address;
     }

@@ -7,7 +7,7 @@ namespace Brille24\Mailchimp\Objects\Data;
 
 use ErrorException;
 
-final class AddressData implements DataInterface
+final class CustomerAddressData implements DataInterface
 {
     /** @var string|null */
     private $address1;
