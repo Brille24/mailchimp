@@ -87,19 +87,31 @@ final class OrderData implements DataInterface
         $this->setLines($lines);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
     {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Order data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
         $lines = array_map(function(OrderLineData $line) {
-            return $line->toRequestBody();
+            return $line->toRequestBodyArray();
         }, $this->getLines());
 
         $promos = array_map(function(OrderPromo $promo) {
-            return $promo->toRequestBody();
+            return $promo->toRequestBodyArray();
         }, $this->getPromos());
 
         $bodyParameters = [
             'id' => $this->getId(),
-            'customer' => $this->getCustomer()->toRequestBody(),
+            'customer' => $this->getCustomer()->toRequestBodyArray(),
             'campaign_id' => $this->getCampaignId(),
             'landing_site' => $this->getLandingSite(),
             'financial_status' => $this->getFinancialStatus(),
@@ -128,23 +140,20 @@ final class OrderData implements DataInterface
         }
 
         if (null !== $this->getShippingAddress()) {
-            $bodyParameters['shipping_address'] = $this->getShippingAddress()->toRequestBody();
+            $bodyParameters['shipping_address'] = $this->getShippingAddress()->toRequestBodyArray();
         }
 
         if (null !== $this->getBillingAddress()) {
-            $bodyParameters['billing_address'] = $this->getBillingAddress()->toRequestBody();
+            $bodyParameters['billing_address'] = $this->getBillingAddress()->toRequestBodyArray();
         }
 
         if (null !== $this->getOutreach()) {
-            $bodyParameters['outreach'] = $this->getOutreach()->toRequestBody();
+            $bodyParameters['outreach'] = $this->getOutreach()->toRequestBodyArray();
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Order data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

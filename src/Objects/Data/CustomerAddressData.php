@@ -33,7 +33,19 @@ final class CustomerAddressData implements DataInterface
     /** @var string|null */
     private $country_code;
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Address data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'address1' => $this->getAddress1(),
@@ -46,12 +58,9 @@ final class CustomerAddressData implements DataInterface
             'country_code' => $this->getCountryCode(),
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Address data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

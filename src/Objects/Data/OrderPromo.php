@@ -29,7 +29,19 @@ final class OrderPromo implements DataInterface
         $this->setType($type);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Promo code data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'code' => $this->getCode(),
@@ -37,12 +49,9 @@ final class OrderPromo implements DataInterface
             'type' => (string)$this->getType(),
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Promo code data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

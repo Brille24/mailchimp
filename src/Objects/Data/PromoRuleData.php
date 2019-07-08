@@ -59,7 +59,19 @@ final class PromoRuleData implements DataInterface
         $this->setTarget($target);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Promo rule data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'id' => $this->getId(),
@@ -87,12 +99,9 @@ final class PromoRuleData implements DataInterface
             $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTimeInterface::ATOM);
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Promo rule data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

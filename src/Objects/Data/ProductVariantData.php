@@ -43,7 +43,19 @@ final class ProductVariantData implements DataInterface
         $this->setTitle($title);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Product variant data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'id' => $this->getId(),
@@ -60,12 +72,9 @@ final class ProductVariantData implements DataInterface
             $bodyParameters['visibility'] = (string)$this->getVisibility();
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Product variant data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

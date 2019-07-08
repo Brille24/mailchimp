@@ -24,7 +24,19 @@ final class ProductImageData implements DataInterface
         $this->setUrl($url);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Product image data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $variant_ids = array_map(function(ProductVariantData $variant) {
             return $variant->getId();
@@ -36,12 +48,9 @@ final class ProductImageData implements DataInterface
             'variant_ids' => $variant_ids,
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Product image data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

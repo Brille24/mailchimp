@@ -48,15 +48,27 @@ final class CartData implements DataInterface
         $this->setLines($lines);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
     {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Cart data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
         $lines = array_map(function(CartLineData $line) {
-            return $line->toRequestBody();
+            return $line->toRequestBodyArray();
         }, $this->getLines());
 
         $bodyParameters = [
             'id' => $this->getId(),
-            'customer' => $this->getCustomer()->toRequestBody(),
+            'customer' => $this->getCustomer()->toRequestBodyArray(),
             'campaign_id' => $this->getCampaignId(),
             'checkout_url' => $this->getCheckoutUrl(),
             'currency_code' => $this->getCurrencyCode(),
@@ -65,12 +77,9 @@ final class CartData implements DataInterface
             'lines' => $lines,
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Cart data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

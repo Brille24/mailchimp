@@ -41,7 +41,19 @@ final class CustomerData implements DataInterface
         $this->setId($id);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Customer data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'id' => $this->getId(),
@@ -55,15 +67,12 @@ final class CustomerData implements DataInterface
         ];
 
         if (null !== $this->getAddress()) {
-            $bodyParameters['address'] = $this->getAddress()->toRequestBody();
+            $bodyParameters['address'] = $this->getAddress()->toRequestBodyArray();
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Customer data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

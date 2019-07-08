@@ -33,15 +33,20 @@ class TagData implements DataInterface
     /** {@inheritDoc} */
     public function toRequestBody(): string
     {
-        $bodyParameters = [];
-
-        $bodyParameters['tags'] = $this->getTags();
-
-        $body = json_encode($bodyParameters);
+        $body = json_encode($this->toRequestBodyArray());
         if ($body === false) {
             throw new ErrorException('Member data could not be encoded to json');
         }
 
         return $body;
+    }
+
+    public function toRequestBodyArray(): array
+    {
+        $bodyParameters = [];
+
+        $bodyParameters['tags'] = $this->getTags();
+
+        return $bodyParameters;
     }
 }

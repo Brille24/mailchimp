@@ -48,7 +48,19 @@ final class OrderAddressData implements DataInterface
     /** @var string|null */
     private $company;
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Address data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'name' => $this->getName(),
@@ -66,12 +78,9 @@ final class OrderAddressData implements DataInterface
             'company' => $this->getCompany(),
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Address data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

@@ -39,7 +39,19 @@ final class StoreAddressData implements DataInterface
     /** @var float|null */
     private $latitude;
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
+    {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Address data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
     {
         $bodyParameters = [
             'address1' => $this->getAddress1(),
@@ -54,12 +66,9 @@ final class StoreAddressData implements DataInterface
             'latitude' => $this->getLatitude(),
         ];
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Address data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

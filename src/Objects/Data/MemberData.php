@@ -159,6 +159,17 @@ final class MemberData implements DataInterface
     /** {@inheritdoc} */
     public function toRequestBody(): string
     {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Member data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
         $bodyParameters = [];
 
         $bodyParameters['email_address'] = $this->getEmailAddress();
@@ -188,11 +199,8 @@ final class MemberData implements DataInterface
             $bodyParameters['tags'] = $this->getTags();
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Member data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 }

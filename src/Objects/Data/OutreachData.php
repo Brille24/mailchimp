@@ -12,18 +12,27 @@ final class OutreachData implements DataInterface
     /** @var string|null */
     private $id;
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
     {
-        $bodyParameters = [
-            'id' => $this->getId(),
-        ];
-
-        $body = json_encode($bodyParameters);
+        $body = json_encode($this->toRequestBodyArray());
         if ($body === false) {
             throw new ErrorException('Outreach data could not be encoded to json');
         }
 
         return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
+        $bodyParameters = [
+            'id' => $this->getId(),
+        ];
+
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**

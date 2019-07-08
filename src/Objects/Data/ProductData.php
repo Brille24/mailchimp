@@ -50,14 +50,26 @@ final class ProductData implements DataInterface
         $this->setVariants($variants);
     }
 
+    /** {@inheritdoc} */
     public function toRequestBody(): string
     {
+        $body = json_encode($this->toRequestBodyArray());
+        if ($body === false) {
+            throw new ErrorException('Product data could not be encoded to json');
+        }
+
+        return $body;
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
         $variants = array_map(function(ProductVariantData $variant) {
-            return $variant->toRequestBody();
+            return $variant->toRequestBodyArray();
         }, $this->getVariants());
 
         $images = array_map(function(ProductImageData $image) {
-            return $image->toRequestBody();
+            return $image->toRequestBodyArray();
         }, $this->getImages());
 
         $bodyParameters = [
@@ -77,12 +89,9 @@ final class ProductData implements DataInterface
             $bodyParameters['published_at_foreign'] = $this->getPublishedAtForeign()->format(\DateTimeInterface::ATOM);
         }
 
-        $body = json_encode($bodyParameters);
-        if ($body === false) {
-            throw new ErrorException('Product data could not be encoded to json');
-        }
-
-        return $body;
+        return array_filter($bodyParameters, function($value) {
+            return null !== $value;
+        });
     }
 
     /**
