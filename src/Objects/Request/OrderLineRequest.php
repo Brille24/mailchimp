@@ -22,7 +22,7 @@ class OrderLineRequest extends Request
         RequestMethod $method
     ): RequestInterface {
         if (null === $orderRequest->getIdentifier()) {
-            throw new \InvalidArgumentException('A OrderLineRequest can only be used with a Order-Identifier!');
+            throw new \InvalidArgumentException('An OrderLineRequest can only be used with an Order-Identifier!');
         }
 
         $orderLineRequest = new self($method);
@@ -47,7 +47,7 @@ class OrderLineRequest extends Request
         ?string $id = null
     ): RequestInterface {
         if (null === $orderRequest->getIdentifier()) {
-            throw new \InvalidArgumentException('A OrderLineRequest can only be used with a Order-Identifier!');
+            throw new \InvalidArgumentException('An OrderLineRequest can only be used with an Order-Identifier!');
         }
 
         $orderLineRequest = new self($method);

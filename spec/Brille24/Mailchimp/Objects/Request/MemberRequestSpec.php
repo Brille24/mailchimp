@@ -7,7 +7,6 @@ use Brille24\Mailchimp\Objects\Request\ListRequest;
 use Brille24\Mailchimp\Objects\Request\MemberRequest;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class MemberRequestSpec extends ObjectBehavior
 {

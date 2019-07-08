@@ -9,7 +9,6 @@ use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use Brille24\Mailchimp\Objects\Request\TagsRequest;
 use PhpSpec\ObjectBehavior;
 use InvalidArgumentException;
-use Prophecy\Argument;
 
 class TagsRequestSpec extends ObjectBehavior
 {

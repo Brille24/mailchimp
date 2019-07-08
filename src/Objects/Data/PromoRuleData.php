@@ -8,7 +8,6 @@ namespace Brille24\Mailchimp\Objects\Data;
 use Brille24\Mailchimp\Objects\Enumeration\DiscountTarget;
 use Brille24\Mailchimp\Objects\Enumeration\DiscountType;
 use ErrorException;
-use function GuzzleHttp\Psr7\str;
 
 final class PromoRuleData implements DataInterface
 {
