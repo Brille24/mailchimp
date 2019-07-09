@@ -8,7 +8,7 @@ namespace Brille24\Mailchimp\Objects\Data;
 use Brille24\Mailchimp\Objects\Request\Request;
 use ErrorException;
 
-final class BatchesData implements DataInterface
+final class BatchData implements DataInterface
 {
     /** @var Request[] */
     private $operations = [];

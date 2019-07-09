@@ -12,10 +12,10 @@ final class CustomerData implements DataInterface
     /** @var string */
     private $id;
 
-    /** @var string|null */
+    /** @var string */
     private $email_address;
 
-    /** @var bool|null */
+    /** @var bool */
     private $opt_in_status;
 
     /** @var string|null */
@@ -36,9 +36,14 @@ final class CustomerData implements DataInterface
     /** @var CustomerAddressData|null */
     private $address;
 
-    public function __construct(string $id)
-    {
+    public function __construct(
+        string $id,
+        string $email_address,
+        bool $opt_in_status
+    ) {
         $this->setId($id);
+        $this->setEmailAddress($email_address);
+        $this->setOptInStatus($opt_in_status);
     }
 
     /** {@inheritdoc} */
@@ -92,33 +97,33 @@ final class CustomerData implements DataInterface
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getEmailAddress(): ?string
+    public function getEmailAddress(): string
     {
         return $this->email_address;
     }
 
     /**
-     * @param string|null $email_address
+     * @param string $email_address
      */
-    public function setEmailAddress(?string $email_address): void
+    public function setEmailAddress(string $email_address): void
     {
         $this->email_address = $email_address;
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function getOptInStatus(): ?bool
+    public function getOptInStatus(): bool
     {
         return $this->opt_in_status;
     }
 
     /**
-     * @param bool|null $opt_in_status
+     * @param bool $opt_in_status
      */
-    public function setOptInStatus(?bool $opt_in_status): void
+    public function setOptInStatus(bool $opt_in_status): void
     {
         $this->opt_in_status = $opt_in_status;
     }
