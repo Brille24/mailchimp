@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Brille24\Mailchimp\Objects\Request;
+namespace spec\Brille24\Mailchimp\Objects\Request\Ecommerce;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
-use Brille24\Mailchimp\Objects\Request\CartLineRequest;
-use Brille24\Mailchimp\Objects\Request\CartRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\CartLineRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\CartRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\StoreRequest;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
-use Brille24\Mailchimp\Objects\Request\StoreRequest;
 use PhpSpec\ObjectBehavior;
 
 class CartLineRequestSpec extends ObjectBehavior

@@ -1,14 +1,14 @@
 <?php
 
-namespace spec\Brille24\Mailchimp\Objects\Request;
+namespace spec\Brille24\Mailchimp\Objects\Request\Ecommerce;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
-use Brille24\Mailchimp\Objects\Request\CartRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\CustomerRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\StoreRequest;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
-use Brille24\Mailchimp\Objects\Request\StoreRequest;
 use PhpSpec\ObjectBehavior;
 
-class CartRequestSpec extends ObjectBehavior
+class CustomerRequestSpec extends ObjectBehavior
 {
     public function let(): void
     {
@@ -19,7 +19,7 @@ class CartRequestSpec extends ObjectBehavior
 
     public function it_is_initializable(): void
     {
-        $this->shouldHaveType(CartRequest::class);
+        $this->shouldHaveType(CustomerRequest::class);
     }
 
     public function it_implements(): void
@@ -29,7 +29,7 @@ class CartRequestSpec extends ObjectBehavior
 
     public function it_will_produce_an_executable_request(): void
     {
-        $this->getPrimaryResource()->shouldReturn('ecommerce/stores/store-ident/carts');
+        $this->getPrimaryResource()->shouldReturn('ecommerce/stores/store-ident/customers');
     }
 
     public function it_throws_an_exception_if_a_primary_resource_has_no_identifier(
@@ -37,7 +37,7 @@ class CartRequestSpec extends ObjectBehavior
     ): void {
         $storeRequest->getIdentifier()->willReturn(null);
         $this->shouldThrow(
-            new \InvalidArgumentException('A CartRequest can only be used with a Store-Identifier!')
+            new \InvalidArgumentException('A CustomerRequest can only be used with a Store-Identifier!')
         )->during(
             'fromStoreAndMethod',
             [$storeRequest, RequestMethod::byName('GET')]

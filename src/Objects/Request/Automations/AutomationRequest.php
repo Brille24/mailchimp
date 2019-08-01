@@ -9,7 +9,7 @@ use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
 use Brille24\Mailchimp\Objects\Request\Request;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
 
-final class AutomationRequest extends Request
+class AutomationRequest extends Request
 {
     /** {@inheritdoc} */
     public static function fromMethod(

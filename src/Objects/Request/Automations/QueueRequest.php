@@ -10,7 +10,7 @@ use Brille24\Mailchimp\Objects\Request\Request;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use InvalidArgumentException;
 
-final class QueueRequest extends Request
+class QueueRequest extends Request
 {
     /**
      * @param EmailRequest $emailRequest

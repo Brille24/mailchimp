@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Brille24\Mailchimp\Objects\Request;
+namespace spec\Brille24\Mailchimp\Objects\Request\Ecommerce;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
-use Brille24\Mailchimp\Objects\Request\ProductRequest;
-use Brille24\Mailchimp\Objects\Request\ProductVariantRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\ProductRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\ProductVariantRequest;
+use Brille24\Mailchimp\Objects\Request\Ecommerce\StoreRequest;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
-use Brille24\Mailchimp\Objects\Request\StoreRequest;
 use PhpSpec\ObjectBehavior;
 
 class ProductVariantRequestSpec extends ObjectBehavior
