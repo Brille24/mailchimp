@@ -41,7 +41,7 @@ class QueueRequestSpec extends ObjectBehavior
         $this->shouldThrow(
             new \InvalidArgumentException('A QueueRequest can only be used with an Email-Identifier!')
         )->during(
-            'fromAutomationAndMethod',
+            'fromEmailAndMethod',
             [$emailRequest, RequestMethod::byName('GET')]
         );
     }
