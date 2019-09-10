@@ -129,15 +129,15 @@ final class OrderData implements DataInterface
         ];
 
         if (null !== $this->getProcessedAtForeign()) {
-            $bodyParameters['processed_at_foreign'] = $this->getProcessedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['processed_at_foreign'] = $this->getProcessedAtForeign()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getCancelledAtForeign()) {
-            $bodyParameters['cancelled_at_foreign'] = $this->getCancelledAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['cancelled_at_foreign'] = $this->getCancelledAtForeign()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getUpdatedAtForeign()) {
-            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getShippingAddress()) {

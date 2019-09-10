@@ -84,19 +84,19 @@ final class PromoRuleData implements DataInterface
         ];
 
         if (null !== $this->getStartsAt()) {
-            $bodyParameters['starts_at'] = $this->getStartsAt()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['starts_at'] = $this->getStartsAt()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getEndsAt()) {
-            $bodyParameters['ends_at'] = $this->getEndsAt()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['ends_at'] = $this->getEndsAt()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getCreatedAtForeign()) {
-            $bodyParameters['created_at_foreign'] = $this->getCreatedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['created_at_foreign'] = $this->getCreatedAtForeign()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getUpdatedAtForeign()) {
-            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTime::ATOM);
         }
 
         return array_filter($bodyParameters, function($value) {

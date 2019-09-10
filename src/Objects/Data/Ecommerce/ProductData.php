@@ -87,7 +87,7 @@ final class ProductData implements DataInterface
         ];
 
         if (null !== $this->getPublishedAtForeign()) {
-            $bodyParameters['published_at_foreign'] = $this->getPublishedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['published_at_foreign'] = $this->getPublishedAtForeign()->format(\DateTime::ATOM);
         }
 
         return array_filter($bodyParameters, function($value) {

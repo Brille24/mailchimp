@@ -64,11 +64,11 @@ final class PromoCodeData implements DataInterface
         ];
 
         if (null !== $this->getCreatedAtForeign()) {
-            $bodyParameters['created_at_foreign'] = $this->getCreatedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['created_at_foreign'] = $this->getCreatedAtForeign()->format(\DateTime::ATOM);
         }
 
         if (null !== $this->getUpdatedAtForeign()) {
-            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTimeInterface::ATOM);
+            $bodyParameters['updated_at_foreign'] = $this->getUpdatedAtForeign()->format(\DateTime::ATOM);
         }
 
         return array_filter($bodyParameters, function($value) {
