@@ -15,12 +15,18 @@ final class QueryParameters extends Dictionary implements DataInterface
     /** {@inheritdoc} */
     public function toRequestBody(): string
     {
+        return implode('&', $this->toRequestBodyArray());
+    }
+
+    /** {@inheritdoc} */
+    public function toRequestBodyArray(): array
+    {
         $queryString = [];
         /** @var KeyValuePair $queryParameter*/
         foreach ($this->toArray() as $queryParameter) {
             $queryString[] = sprintf('%s=%s', $queryParameter->getKey(), $queryParameter->getValue());
         }
 
-        return implode('&', $queryString);
+        return $queryString;
     }
 }

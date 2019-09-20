@@ -5,9 +5,11 @@
 
 declare(strict_types=1);
 
-namespace Brille24\Mailchimp\Objects\Request;
+namespace Brille24\Mailchimp\Objects\Request\Audiences;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
+use Brille24\Mailchimp\Objects\Request\Request;
+use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use InvalidArgumentException;
 
 class MemberRequest extends Request

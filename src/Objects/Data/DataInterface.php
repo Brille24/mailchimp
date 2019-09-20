@@ -17,4 +17,11 @@ interface DataInterface
      * @throws \Exception
      */
     public function toRequestBody(): string;
+
+    /**
+     * Converts this into an arry that can be used by other data objects
+     *
+     * @return array
+     */
+    public function toRequestBodyArray(): array;
 }

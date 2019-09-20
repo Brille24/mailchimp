@@ -1,15 +1,14 @@
 <?php
 
-namespace spec\Brille24\Mailchimp\Objects\Request;
+namespace spec\Brille24\Mailchimp\Objects\Request\Audiences;
 
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
-use Brille24\Mailchimp\Objects\Request\ListRequest;
-use Brille24\Mailchimp\Objects\Request\MemberRequest;
+use Brille24\Mailchimp\Objects\Request\Audiences\ListRequest;
+use Brille24\Mailchimp\Objects\Request\Audiences\MemberRequest;
+use Brille24\Mailchimp\Objects\Request\Audiences\TagsRequest;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
-use Brille24\Mailchimp\Objects\Request\TagsRequest;
 use PhpSpec\ObjectBehavior;
 use InvalidArgumentException;
-use Prophecy\Argument;
 
 class TagsRequestSpec extends ObjectBehavior
 {

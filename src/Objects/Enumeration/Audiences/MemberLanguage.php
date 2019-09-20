@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Brille24\Mailchimp\Objects\Enumeration;
+namespace Brille24\Mailchimp\Objects\Enumeration\Audiences;
 
 use ValueObjects\Enum\Enum;
 

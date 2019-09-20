@@ -6,8 +6,6 @@ use Brille24\Mailchimp\Mailchimp;
 use Brille24\Mailchimp\MailchimpInterface;
 use Brille24\Mailchimp\Objects\Data\DataInterface;
 use Brille24\Mailchimp\Objects\Enumeration\RequestMethod;
-use Brille24\Mailchimp\Objects\Request\ListRequest;
-use Brille24\Mailchimp\Objects\Request\Request;
 use Brille24\Mailchimp\Objects\Request\RequestInterface;
 use Brille24\Mailchimp\Objects\Security\Credentials;
 use GuzzleHttp\Client;
@@ -15,7 +13,6 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Psr\Http\Message\ResponseInterface;
 
 class MailchimpSpec extends ObjectBehavior
